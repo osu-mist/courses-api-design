@@ -48,6 +48,8 @@ securityDefinitions:
 definitions:
   ResultObjects:
     properties:
+      links:
+        $ref: "#/definitions/Links"
       data:
         type: array
         items:
@@ -71,6 +73,19 @@ definitions:
         type: string
         description: "Human readable description for instruction type"
 
+  Links:
+    properties:
+      self:
+        type: string
+      first:
+        type: string
+      last:
+        type: string
+      prev:
+        type: string
+      next:
+        type: string
+
   Error:
     type: object
     properties:
@@ -91,4 +106,3 @@ definitions:
     type: array
     items:
       $ref: "#/definitions/Error"
-
