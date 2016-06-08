@@ -43,9 +43,7 @@ paths:
         "500":
           description: "Internal Server Error"
           schema:
-            $ref: "#/definitions/Errors"
-      security:
-        - locations_api_key: []
+            $ref: "#/definitions/Error"
   /terms/{code}:
     # This is a HTTP operation
     get:
@@ -87,9 +85,7 @@ paths:
         "500":
           description: "Internal Server Error"
           schema:
-            $ref: "#/definitions/Errors"
-      security:
-        - locations_api_key: []  
+            $ref: "#/definitions/Error"
   /terms/open:
     # This is a HTTP operation
     get:
@@ -115,19 +111,8 @@ paths:
         "500":
           description: "Internal Server Error"
           schema:
-            $ref: "#/definitions/Errors"
-      security:
-        - locations_api_key: []
-
-    
-
-securityDefinitions:
-
-  locations_api_key:
-    type: apiKey
-    name: locations_api_key
-    in: query
-
+            $ref: "#/definitions/Error"
+          
 definitions:
   ResultObject:
     properties:
@@ -205,9 +190,3 @@ definitions:
         type: integer
       details:
         type: string
-
-  Errors:
-    title: ArrayOfErrors
-    type: array
-    items:
-      $ref: "#/definitions/Error"
