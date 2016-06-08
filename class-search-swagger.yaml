@@ -1,0 +1,275 @@
+swagger: '2.0'
+
+info:
+  version: "0.0.1"
+  title: Class Search API
+
+# Describe your paths here
+paths:
+  # This is a path endpoint. Change it.
+  /class-search:
+    # This is a HTTP operation
+    get:
+      tags:
+       - classes
+       - search
+      # Describe this verb here. Note: you can use markdown
+      description: "Gets all `class` objects for a term that are available for registration."
+      operationId: getClasses
+      # This is array of GET operation parameters:
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: term
+          description: "todo"
+          required: true
+          type: string
+        - in: query
+          name: subject
+          description: "todo"
+          required: false
+          type: string
+        - in: query
+          name: courseNumber
+          description: "todo"
+          required: false
+          type: string
+        - in: query
+          name: q
+          description: "Searches class title, description, and subject"
+          required: false
+          type: string
+        - in: query
+          name: page[size]
+          description: "Number of results to return. Used in pagination. Default value is 10."
+          required: false
+          type: string
+        - in: query
+          name: page[number]
+          description: "Page number of results. Used to paginate through results."
+          required: false
+          type: string
+        
+          
+      # Expected responses for this operation:
+      responses:
+        # Response code
+        "200":
+          description: "Successful response"
+          schema:
+            $ref: "#/definitions/ResultObjects"
+        "404":
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/Error"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/Errors"
+      security:
+        - locations_api_key: []
+
+    
+
+securityDefinitions:
+
+  locations_api_key:
+    type: apiKey
+    name: locations_api_key
+    in: query
+
+definitions:
+  ResultObjects:
+    properties:
+      links:
+        $ref: "#/definitions/Links"
+      data:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceObject"
+        
+  ResourceObject:
+    properties:
+      id:
+        type: string
+      type:
+        type: string
+      attributes:
+        $ref: "#/definitions/Attributes"
+        
+  Attributes:
+    properties:
+      campusDescription:
+        type: string
+        description: "Name of campus"
+      courseNumber:
+        type: string
+        description: "Number of course"
+      crn:
+        type: string
+        description: "Course Reference Number used to uniquely identify a class available for registration"
+      sectionTitle:
+        type: string
+        description: "Title of the course section"
+      creditHourHigh:
+        type: string
+        description: "Maximum number of credit hours for a course. Used in variable credit courses."
+      creditHourLow:
+        type: string
+        description: "Minimum number of credit hours for a course."
+      creditHours:
+        type: string
+        description: "Restrict a course to a single credit hour value."
+      enrollment: 
+        type: string
+        description: "Number of currently enrolled students."
+      faculty: 
+        type: array
+        items:
+          $ref: "#/definitions/Faculty"
+    #id: 640123, //@todo: do we want this value? doesn't get displayed in the catalog
+      maximumEnrollment: 
+        type: string
+        description: "Maximum number of people that can enroll"
+      meetingTimes: 
+        type: array
+        items:
+          $ref: "#/definitions/MeetingTimes"
+      openSection:
+        type: string
+        description: "Whether or not the section is open for students to register"
+      termEndDate:
+        type: string
+        description: "End of term"
+      termStartDate": 
+        type: string
+        description: "Beginining of term"
+      termWeeks":
+        type: string
+        description: "Number of weeks the class lasts."
+      scheduleTypeDescription: 
+        type: string
+        description: "Whether the section is a lecture, recitation, thesis, or another type"
+      seatsAvailable: 
+        type: string
+        description: "Number of seats available in the class."
+      section: 
+        type: string
+        description: "Section class"
+      status: 
+        type: string
+        description: "Whether or not the course is open, closed"
+      subject:
+        type: string
+        description: "Letter indification to specify the subject"
+      subjectCourse: 
+        type: string
+        description: "Subject and course number together"
+      subjectDescription:
+        type: string
+        description: "Description of the subject" 
+      term:
+        type: string
+        description: "Term for this specific CRN"
+      termDesc:
+        type: string
+        description: "Term description"
+      waitAvailable:
+        type: string
+        description: "Available spots in waiting list"
+      waitCapacity:
+        type: string
+        description: "Maximum waiting list capacity"
+      waitCount:
+        type: string
+        description: "Number of students currently in waiting list to register"
+  
+  Faculty:
+    properties:
+      displayName:
+        type: string
+      email: #todo: do we want this?
+        type: string
+      primaryFlag: 
+        type: boolean
+        
+  MeetingTimes:
+    properties:
+        startTime:
+          type: string
+          description: "Time when the class meets in 24hr format"
+        endTime: 
+          type: string
+          description: "Time when the class ends in 24hr format"
+        building:
+          type: string
+          description: "Building abbreviation"
+        buildingName:
+          type: string
+          description: "Name of building"
+        room:
+          type: string
+          description: "Room number"
+        campus:
+          type: string
+          description: "Campus code"
+        campusDescription:
+          type: string
+          description: "Name of campus"
+        friday:
+          type: string
+          description: "Whether or not the class meets on this day."
+        monday:
+          type: string
+          description: "Whether or not the class meets on this day."
+        saturday:
+          type: string
+          description: "Whether or not the class meets on this day."
+        sunday: 
+          type: string
+          description: "Whether or not the class meets on this day."
+        thursday:
+          type: string
+          description: "Whether or not the class meets on this day."
+        tuesday:
+          type: string
+          description: "Whether or not the class meets on this day."
+        wednesday:
+          type: string
+          description: "Whether or not the class meets on this day."
+
+      
+  Links:
+    properties:
+      self:
+        type: string
+      first:
+        type: string
+      last:
+        type: string
+      prev:
+        type: string
+      next:
+        type: string
+        
+  Error:
+    type: object
+    properties:
+      status:
+        type: integer
+        format: int32
+      developerMessage:
+        type: string
+      userMesage:
+        type: string
+      code:
+        type: integer
+      details:
+        type: string
+
+  Errors:
+    title: ArrayOfErrors
+    type: array
+    items:
+      $ref: "#/definitions/Error"
