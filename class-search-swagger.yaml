@@ -14,7 +14,7 @@ paths:
        - classes
        - search
       # Describe this verb here. Note: you can use markdown
-      description: "Gets all `class` objects for a term that are available for registration."
+      description: "Searches for the classes available for registration given a term code, subject and course number."
       operationId: getClasses
       # This is array of GET operation parameters:
       produces:
@@ -22,17 +22,17 @@ paths:
       parameters:
         - in: query
           name: term
-          description: "todo"
+          description: "The term code is based on the fiscal year. To find the term that you an appropriate value, first query `/terms/open` or `/terms` and use the `code` value."
           required: true
           type: string
         - in: query
           name: subject
-          description: "todo"
+          description: "This is a two to four letter course subject. To find a list of appropriate subjects, you can query: `/course-subjects` and use the `abbreviation` value."
           required: false
           type: string
         - in: query
           name: courseNumber
-          description: "todo"
+          description: "This is the course number associated with a class. For example, the value `111` is the course number for MTH 111."
           required: false
           type: string
         - in: query
@@ -66,18 +66,7 @@ paths:
         "500":
           description: "Internal Server Error"
           schema:
-            $ref: "#/definitions/Errors"
-      security:
-        - locations_api_key: []
-
-    
-
-securityDefinitions:
-
-  locations_api_key:
-    type: apiKey
-    name: locations_api_key
-    in: query
+            $ref: "#/definitions/Error"
 
 definitions:
   ResultObjects:
@@ -102,13 +91,13 @@ definitions:
     properties:
       campusDescription:
         type: string
-        description: "Name of campus"
+        description: "Name of campus. Sample value: `Oregon State - Corvallis`"
       courseNumber:
         type: string
-        description: "Number of course"
+        description: "Number of course. Sample value: `111` for MTH 111"
       crn:
         type: string
-        description: "Course Reference Number used to uniquely identify a class available for registration"
+        description: "Course Reference Number used to uniquely identify a class available for registration. This is the CRN value that students use to register for a class section."
       sectionTitle:
         type: string
         description: "Title of the course section"
@@ -124,14 +113,13 @@ definitions:
       enrollment: 
         type: string
         description: "Number of currently enrolled students."
+      maximumEnrollment: 
+        type: string
+        description: "Maximum number of people that can enroll"
       faculty: 
         type: array
         items:
           $ref: "#/definitions/Faculty"
-    #id: 640123, //@todo: do we want this value? doesn't get displayed in the catalog
-      maximumEnrollment: 
-        type: string
-        description: "Maximum number of people that can enroll"
       meetingTimes: 
         type: array
         items:
@@ -139,33 +127,30 @@ definitions:
       openSection:
         type: string
         description: "Whether or not the section is open for students to register"
-      termEndDate:
-        type: string
-        description: "End of term"
       termStartDate": 
         type: string
-        description: "Beginining of term"
+        description: "Beginining of term. Format: YYYY-MM-DD"
+      termEndDate:
+        type: string
+        description: "End of term. Format: YYYY-MM-DD"
       termWeeks":
         type: string
         description: "Number of weeks the class lasts."
       scheduleTypeDescription: 
         type: string
         description: "Whether the section is a lecture, recitation, thesis, or another type"
-      seatsAvailable: 
-        type: string
-        description: "Number of seats available in the class."
       section: 
         type: string
         description: "Section class"
       status: 
         type: string
-        description: "Whether or not the course is open, closed"
+        description: "Whether or not the course is open or closed"
       subject:
         type: string
-        description: "Letter indification to specify the subject"
+        description: "Letter indification to specify the subject. This is the same value as the subject parameter"
       subjectCourse: 
         type: string
-        description: "Subject and course number together"
+        description: "Subject and course number together. Sample value: CS161"
       subjectDescription:
         type: string
         description: "Description of the subject" 
@@ -175,9 +160,6 @@ definitions:
       termDesc:
         type: string
         description: "Term description"
-      waitAvailable:
-        type: string
-        description: "Available spots in waiting list"
       waitCapacity:
         type: string
         description: "Maximum waiting list capacity"
@@ -189,9 +171,7 @@ definitions:
     properties:
       displayName:
         type: string
-      email: #todo: do we want this?
-        type: string
-      primaryFlag: 
+      primaryFaculty: 
         type: boolean
         
   MeetingTimes:
@@ -217,28 +197,29 @@ definitions:
         campusDescription:
           type: string
           description: "Name of campus"
-        friday:
-          type: string
-          description: "Whether or not the class meets on this day."
         monday:
-          type: string
-          description: "Whether or not the class meets on this day."
-        saturday:
-          type: string
-          description: "Whether or not the class meets on this day."
-        sunday: 
-          type: string
-          description: "Whether or not the class meets on this day."
-        thursday:
-          type: string
+          type: boolean
           description: "Whether or not the class meets on this day."
         tuesday:
-          type: string
+          type: boolean
           description: "Whether or not the class meets on this day."
         wednesday:
-          type: string
+          type: boolean
+          description: "Whether or not the class meets on this day."
+        thursday:
+          type: boolean
+          description: "Whether or not the class meets on this day."
+        friday:
+          type: boolean
+          description: "Whether or not the class meets on this day."
+        saturday:
+          type: boolean
+          description: "Whether or not the class meets on this day."
+        sunday: 
+          type: boolean
           description: "Whether or not the class meets on this day."
 
+        
       
   Links:
     properties:
@@ -267,9 +248,3 @@ definitions:
         type: integer
       details:
         type: string
-
-  Errors:
-    title: ArrayOfErrors
-    type: array
-    items:
-      $ref: "#/definitions/Error"
