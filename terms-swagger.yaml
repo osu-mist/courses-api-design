@@ -18,6 +18,17 @@ paths:
       # This is array of GET operation parameters:
       produces:
         - application/json
+      parameters:
+        - in: query
+          name: page[size]
+          description: "Number of results to return. Used in pagination. Default value is 10."
+          required: false
+          type: string
+        - in: query
+          name: page[number]
+          description: "Page number of results. Used to paginate through results."
+          required: false
+          type: string
       # Expected responses for this operation:
       responses:
         # Response code
@@ -96,23 +107,25 @@ definitions:
     properties:
       code:
         type: string
+        description: "Six digit code to identify the fiscal year and term. For example, Fall 2016 is identified as: 201701 and Summer 2016 as: 201700. This code is used to search for classes in a given term."
       description:
         type: string
+        description: "Human readable academic term description. Example: Fall 2016"
       startDate:
         type: string
-        description: "First day of classes in this term"
+        description: "First day of classes in this term. Format is in: YYYY-MM-DD."
       endDate:
         type: string
-        description: "Last day of classes in this term"
+        description: "Last day of classes in this term. Format is in: YYYY-MM-DD."
       financialAidYear:
         type: string
-        description: "Aid year associated with this term"
+        description: "Aid year associated with this term. This is a four digit code. For example, for Summer 2016, the value would be: 1617"
       housingStartDate:
         type: string
-        description: "First day for meal plan and housing assignments"
+        description: "First day for meal plan and housing assignments. Format is in: YYYY-MM-DD."
       housingEndDate:
         type: string
-        description: "Last day for meal plan and housing assignments"
+        description: "Last day for meal plan and housing assignments. Format is in: YYYY-MM-DD."
       
   Links:
     properties:
