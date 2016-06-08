@@ -69,10 +69,10 @@ definitions:
     properties:
       abbreviation:
         type: string
-        description: "Subject abbreviation used to map courses to organization."
+        description: "This code is used to filter the list of courses. Example values: 'CS', 'BIO', 'PH'"
       title:
         type: string
-        description: "Human readable course title"
+        description: "Human readable course title. Example values: 'Computer Science', 'Biology-UO', 'Physics'"
       
   Links:
     properties:
