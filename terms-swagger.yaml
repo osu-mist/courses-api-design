@@ -2,18 +2,46 @@ swagger: '2.0'
 
 info:
   version: "0.0.1"
-  title: Open Terms API
+  title: Terms API
 
 # Describe your paths here
 paths:
   # This is a path endpoint. Change it.
-  /open-terms:
+  /terms:
     # This is a HTTP operation
     get:
       tags:
-       - open-terms
+       - terms
       # Describe this verb here. Note: you can use markdown
-      description: "Gets all `open-terms` objects."
+      description: "Gets all `terms` objects. These are school terms that relate to classes and housing. This includes terms from previous years as well as future terms."
+      operationId: getTerms
+      # This is array of GET operation parameters:
+      produces:
+        - application/json
+      # Expected responses for this operation:
+      responses:
+        # Response code
+        "200":
+          description: "Successful response"
+          schema:
+            $ref: "#/definitions/ResultObjects"
+        "404":
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/Error"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/Errors"
+      security:
+        - locations_api_key: []
+  /terms/open:
+    # This is a HTTP operation
+    get:
+      tags:
+       - terms
+      # Describe this verb here. Note: you can use markdown
+      description: "Returns only the `term` objects that a student can register for."
       operationId: getOpenTerms
       # This is array of GET operation parameters:
       produces:
@@ -46,13 +74,6 @@ securityDefinitions:
     in: query
 
 definitions:
-  ResultObject:
-    properties:
-      links:
-        $ref: "#/definitions/Links"
-      data:
-        $ref: "#/definitions/ResourceObject"
-
   ResultObjects:
     properties:
       links:
@@ -75,8 +96,23 @@ definitions:
     properties:
       code:
         type: string
-      title:
+      description:
         type: string
+      startDate:
+        type: string
+        description: "First day of classes in this term"
+      endDate:
+        type: string
+        description: "Last day of classes in this term"
+      financialAidYear:
+        type: string
+        description: "Aid year associated with this term"
+      housingStartDate:
+        type: string
+        description: "First day for meal plan and housing assignments"
+      housingEndDate:
+        type: string
+        description: "Last day for meal plan and housing assignments"
       
   Links:
     properties:
