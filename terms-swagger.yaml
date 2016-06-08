@@ -46,6 +46,50 @@ paths:
             $ref: "#/definitions/Errors"
       security:
         - locations_api_key: []
+  /terms/{code}:
+    # This is a HTTP operation
+    get:
+      tags:
+       - terms
+      # Describe this verb here. Note: you can use markdown
+      description: "Gets a single `terms` object."
+      operationId: getTerm
+      # This is array of GET operation parameters:
+      produces:
+        - application/json
+      parameters:
+        - name: code
+          in: path
+          description: "Building code used to identify a single term. This is a four digit number."
+          required: true
+          type: string
+        - in: query
+          name: page[size]
+          description: "Number of results to return. Used in pagination. Default value is 10."
+          required: false
+          type: string
+        - in: query
+          name: page[number]
+          description: "Page number of results. Used to paginate through results."
+          required: false
+          type: string
+      # Expected responses for this operation:
+      responses:
+        # Response code
+        "200":
+          description: "Successful response"
+          schema:
+            $ref: "#/definitions/ResultObject"
+        "404":
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/Error"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/Errors"
+      security:
+        - locations_api_key: []  
   /terms/open:
     # This is a HTTP operation
     get:
@@ -85,6 +129,13 @@ securityDefinitions:
     in: query
 
 definitions:
+  ResultObject:
+    properties:
+      links:
+        $ref: "#/definitions/Links"
+      data:
+        $ref: "#/definitions/ResourceObject"
+        
   ResultObjects:
     properties:
       links:
