@@ -4,19 +4,14 @@ info:
   version: "0.0.1"
   title: Class Search API
 
-# Describe your paths here
 paths:
-  # This is a path endpoint. Change it.
   /class-search:
-    # This is a HTTP operation
     get:
       tags:
        - classes
        - search
-      # Describe this verb here. Note: you can use markdown
       description: "Searches for the classes available for registration given a term code, subject and course number."
       operationId: getClasses
-      # This is array of GET operation parameters:
       produces:
         - application/json
       parameters:
@@ -52,9 +47,7 @@ paths:
           type: string
         
           
-      # Expected responses for this operation:
       responses:
-        # Response code
         "200":
           description: "Successful response"
           schema:

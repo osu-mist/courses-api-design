@@ -4,18 +4,13 @@ info:
   version: "0.0.1"
   title: Terms API
 
-# Describe your paths here
 paths:
-  # This is a path endpoint. Change it.
   /terms:
-    # This is a HTTP operation
     get:
       tags:
        - terms
-      # Describe this verb here. Note: you can use markdown
       description: "Gets all `terms` objects. These are school terms that relate to classes and housing. This includes terms from previous years as well as future terms."
       operationId: getTerms
-      # This is array of GET operation parameters:
       produces:
         - application/json
       parameters:
@@ -29,9 +24,7 @@ paths:
           description: "Page number of results. Used to paginate through results."
           required: false
           type: string
-      # Expected responses for this operation:
       responses:
-        # Response code
         "200":
           description: "Successful response"
           schema:
@@ -45,14 +38,11 @@ paths:
           schema:
             $ref: "#/definitions/Error"
   /terms/{code}:
-    # This is a HTTP operation
     get:
       tags:
        - terms
-      # Describe this verb here. Note: you can use markdown
       description: "Gets a single `terms` object."
       operationId: getTerm
-      # This is array of GET operation parameters:
       produces:
         - application/json
       parameters:
@@ -71,9 +61,7 @@ paths:
           description: "Page number of results. Used to paginate through results."
           required: false
           type: string
-      # Expected responses for this operation:
       responses:
-        # Response code
         "200":
           description: "Successful response"
           schema:
@@ -87,19 +75,14 @@ paths:
           schema:
             $ref: "#/definitions/Error"
   /terms/open:
-    # This is a HTTP operation
     get:
       tags:
        - terms
-      # Describe this verb here. Note: you can use markdown
       description: "Returns only the `term` objects that a student can register for."
       operationId: getOpenTerms
-      # This is array of GET operation parameters:
       produces:
         - application/json
-      # Expected responses for this operation:
       responses:
-        # Response code
         "200":
           description: "Successful response"
           schema:

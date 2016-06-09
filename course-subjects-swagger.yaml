@@ -4,24 +4,17 @@ info:
   version: "0.0.1"
   title: Course Subjects API
 
-# Describe your paths here
 paths:
-  # This is a path endpoint. Change it.
   /course-subjects:
-    # This is a HTTP operation
     get:
       tags:
        - organizations
        - departments
-      # Describe this verb here. Note: you can use markdown
       description: "Gets all `course-subject` objects."
       operationId: getCourseSubjects
-      # This is array of GET operation parameters:
       produces:
         - application/json
-      # Expected responses for this operation:
       responses:
-        # Response code
         "200":
           description: "Successful response"
           schema:
