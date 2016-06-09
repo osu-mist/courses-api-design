@@ -95,19 +95,19 @@ definitions:
         type: string
         description: "Title of the course section"
       creditHourHigh:
-        type: string
+        type: integer
         description: "Maximum number of credit hours for a course. Used in variable credit courses."
       creditHourLow:
-        type: string
+        type: integer
         description: "Minimum number of credit hours for a course."
       creditHours:
-        type: string
+        type: integer
         description: "Restrict a course to a single credit hour value."
       enrollment: 
-        type: string
+        type: integer
         description: "Number of currently enrolled students."
       maximumEnrollment: 
-        type: string
+        type: integer
         description: "Maximum number of people that can enroll"
       faculty: 
         type: array
@@ -137,10 +137,10 @@ definitions:
         description: "Section class"
       status: 
         type: string
-        description: "Whether or not the course is open or closed"
+        description: "Whether the course is open or closed"
       subject:
         type: string
-        description: "Letter indification to specify the subject. This is the same value as the subject parameter"
+        description: "Letter identifier to specify the subject. This is the same value as the subject parameter"
       subjectCourse: 
         type: string
         description: "Subject and course number together. Sample value: CS161"
@@ -154,10 +154,10 @@ definitions:
         type: string
         description: "Term description"
       waitCapacity:
-        type: string
+        type: integer
         description: "Maximum waiting list capacity"
       waitCount:
-        type: string
+        type: integer
         description: "Number of students currently in waiting list to register"
   
   Faculty:
