@@ -48,7 +48,7 @@ paths:
       parameters:
         - name: code
           in: path
-          description: "Building code used to identify a single term. This is a four digit number."
+          description: "Term code used to identify a single term. This is a four digit number."
           required: true
           type: string
         - in: query
